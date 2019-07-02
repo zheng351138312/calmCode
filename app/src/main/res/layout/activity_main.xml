@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.example.flowlayouttest.FlowLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="你成功的吸引了我的注意"
+            />
+        <Button
+            android:text="你好，我的第一个有想法的作品"
+            android:layout_width="wrap_content"
+            android:layout_height = "wrap_content"
+            />
+        <Button
+            android:text="冷静思考"
+            android:layout_width="wrap_content"
+            android:layout_height = "wrap_content"
+            />
+        <Button
+            android:text="听从自己内心的声音"
+            android:layout_width="wrap_content"
+            android:layout_height = "50dp"
+            />
+        <Button
+            android:text="一步一脚印"
+            android:layout_width="wrap_content"
+            android:layout_height = "match_parent"
+            />
+        <Button
+            android:text="拒绝浮躁"
+            android:layout_width="wrap_content"
+            android:layout_height = "wrap_content"
+            />
+        <Button
+            android:text="岁月静好"
+            android:layout_width="wrap_content"
+            android:layout_height = "wrap_content"
+            />
+        <Button
+            android:text="想想小时候奶奶给你讲的故事"
+            android:layout_width="wrap_content"
+            android:layout_height = "wrap_content"
+            />
+        <Button
+            android:text="天空的星星多美，可惜奶奶吆喝的那首歌谣，已经越来越模糊"
+            android:layout_width="wrap_content"
+            android:layout_height = "wrap_content"
+            />
+        <Button
+            android:text="人的记忆到底有多久，越浮躁、越忘记"
+            android:layout_width="wrap_content"
+            android:layout_height = "wrap_content"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="认真对待每一天、每个人、每件事，好好的活着，为了家人的期待，不要被别人看扁了，就算世界与你为敌"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="每个人都有优点、缺点，但是我不知道我的优点是什么，面试的时候居然写不出来"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="不要抱怨、不要埋怨、简单的活着、向目标一点点的前进"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="对世界充满好奇、对自己充满希望、好好写代码、安静下来"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="或许嘈杂的世界会让你感到浮躁、不安，试着让自己安静下来，听听内心的声音，认真的去做好一件事"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="也许你会遇到一个人，你被她的美貌或者性格深深的吸引，你告诉自己不能浮躁、不能太快的让她发现你的心思，
+            但是的动作、言语却时刻在背叛者你，你的头脑已经不能控制你的身体，一步一步的让你步入深渊。"
+            />
+       <!-- <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="布局结束"
+            />-->
+
+    </com.example.flowlayouttest.FlowLayout>
+
+
+</LinearLayout>
