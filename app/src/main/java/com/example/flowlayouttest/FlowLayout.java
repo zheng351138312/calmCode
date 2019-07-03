@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +45,25 @@ public class FlowLayout extends ViewGroup {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        int action = ev.getAction();
+        switch (action){
+            case MotionEvent.ACTION_DOWN:
+
+                break;
+            case MotionEvent.ACTION_MOVE:
+
+                break;
+            case MotionEvent.ACTION_UP:
+
+                break;
+        }
 
         return super.onInterceptTouchEvent(ev);
+    }
+
+    @Override
+    public void computeScroll() {
+        super.computeScroll();
     }
 
     @Override
@@ -99,6 +117,7 @@ public class FlowLayout extends ViewGroup {
             lineWidth += childWidth;
             lineHeight = Math.max(lineHeight,childHeight);
 
+
             //最后只剩一个view不满足换行条件，不会被当地一行显示出来，最后一行要单独添加
             if (i == childCount - 1){
                 views.add(lineViews);
@@ -106,8 +125,11 @@ public class FlowLayout extends ViewGroup {
                 flowlayoutHeight += lineHeight;
                 heights.add(lineHeight);
             }
-
-
+            LayoutParams lpChild = child.getLayoutParams();
+            if (lpChild.height == LayoutParams.MATCH_PARENT){
+                lpChild.height = LayoutParams.WRAP_CONTENT;
+                child.setLayoutParams(lpChild);
+            }
         }
 
         //FlowLayout最终宽高
