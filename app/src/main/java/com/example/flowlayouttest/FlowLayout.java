@@ -2,10 +2,15 @@ package com.example.flowlayouttest;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
+import android.widget.Scroller;
+
+import androidx.core.view.ViewConfigurationCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +23,17 @@ import java.util.List;
  */
 public class FlowLayout extends ViewGroup {
     private static final String TAG = "Zero";
+    private final Scroller mScroll;
 
     private List<View> lineViews;//每一行的子View
     private List<List<View>> views;//所有的行 一行一行的存储
     private List<Integer> heights;//每一行的高度
 
+    private int minScroll;    //能被拦截的滑动最小距离
 
+    private  float mLastInterceptX = 0;
+    private float mLastInterceptY = 0;
+    private float mLastY = 0;  //滑动的最后距离坐标
 
     public FlowLayout(Context context) {
         this(context, null);
@@ -35,6 +45,9 @@ public class FlowLayout extends ViewGroup {
 
     public FlowLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        ViewConfiguration viewConfiguration = ViewConfiguration.get(context);
+        minScroll = ViewConfigurationCompat.getScaledPagingTouchSlop(viewConfiguration);
+        mScroll = new Scroller(context);
     }
 
     private void init(){
@@ -43,22 +56,43 @@ public class FlowLayout extends ViewGroup {
         heights = new ArrayList<>();
     }
 
+    /**
+     * 拦截事件主要流程
+     * 1.获取点击屏幕的y坐标，即滑动开始y坐标，获取滑动结束时的y坐标，计算出距离
+     * 2.获取点击屏幕的x坐标，即滑动开始x坐标，获取滑动结束时的x坐标，计算出距离
+     * 3.判断x滑动的距离和y滑动的距离，如果y的距离大于x则拦截事件，属于向下滚动
+     * 4.判断滑动距离是否为限制的最小距离，这里使用系统默认值，是则拦截。
+     * @param ev
+     * @return
+     */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         int action = ev.getAction();
+        boolean intercept = false;
+        float mInterceptX = ev.getY();
+        float mInterceptY = ev.getX();
         switch (action){
             case MotionEvent.ACTION_DOWN:
-
+                mLastInterceptX = mInterceptX;
+                mLastInterceptY = mInterceptY;
+                intercept = false;
                 break;
             case MotionEvent.ACTION_MOVE:
-
+                float dx = mInterceptX - mLastInterceptX;
+                float dy = mInterceptY - mLastInterceptY;
+                if (Math.abs(dy) > Math.abs(dx) && dy > minScroll){
+                    intercept = true;
+                }else {
+                    intercept = false;
+                }
                 break;
             case MotionEvent.ACTION_UP:
-
+                intercept = false;
                 break;
         }
-
-        return super.onInterceptTouchEvent(ev);
+        mLastInterceptX = mInterceptX;
+        mLastInterceptY = mInterceptY;
+        return intercept;
     }
 
     @Override
@@ -68,6 +102,24 @@ public class FlowLayout extends ViewGroup {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        int action = event.getAction();
+        float currY = event.getY();
+
+        switch (action){
+            case MotionEvent.ACTION_DOWN:
+                mLastY = currY;
+                break;
+            case MotionEvent.ACTION_MOVE:
+                float dy = mLastY - currY;
+                scrollTo(0,(int)dy);
+                Log.v("touch","ACTION_MOVE" + dy);
+                mLastY = currY;
+                break;
+            case MotionEvent.ACTION_UP:
+                float y2= event.getY();
+                Log.v("touch","ACTION_UP" + y2);
+                break;
+        }
         return super.onTouchEvent(event);
     }
 
